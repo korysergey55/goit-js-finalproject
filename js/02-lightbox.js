@@ -2,38 +2,21 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const ulBoxReff = document.querySelector('.gallery');
 
-let gallery = new SimpleLightbox('.gallery a', { captionsData: 'image-title', });
-
 ulBoxReff.addEventListener('click', (evt) => {
   evt.preventDefault()
-
-  gallery.open('show.simplelightbox', function () {
-    // console.log('show.simplelightbox')
-    (
-      `< a href = "images/image1.jpg" > 
-          <img
-            src="${evt.target.dataset.source}"
-            width="auto"
-            height="auto"
-            alt="${item.description}" 
-            title="${item.description}" 
-          />
-      </ >`
-    )
-  });
 })
-
 
 const createMarkup = (reff) => {
   const images = galleryItems.map((item) => {
     return `
     <li class="gallery__item">
-      <a class="gallery__link" href="images/image1.jpg">
+      <a class="gallery__link" href="${item.preview}">
         <img
            class="gallery__image"
            src="${item.preview}"
            data-source="${item.original}"
            alt="${item.description}"
+           title=${item.description}
         />
        </a>
     </li>`
@@ -41,5 +24,5 @@ const createMarkup = (reff) => {
   reff.insertAdjacentHTML("afterbegin", images)
 }
 createMarkup(ulBoxReff)
+let gallery = new SimpleLightbox('.gallery a', { captions: true, captionDelay: 250 });
 
-console.log(galleryItems);
